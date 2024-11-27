@@ -7,3 +7,9 @@ export const SummaryWrapper = styled(Box)`
 	flex-direction: column;
 	gap: ${theme.spacing(4)};
 `;
+
+export const SkillsWrapper = styled(Box)`
+	display: flex;
+	flex-wrap: wrap;
+	gap: ${theme.spacing(1)};
+`;
