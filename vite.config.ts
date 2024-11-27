@@ -19,6 +19,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@components': resolve(__dirname, 'src/components'),
+			'@shared': resolve(__dirname, 'src/component/shared'),
 			'@api': resolve(__dirname, 'src/api'),
 			'@assets': resolve(__dirname, 'src/assets'),
 		},

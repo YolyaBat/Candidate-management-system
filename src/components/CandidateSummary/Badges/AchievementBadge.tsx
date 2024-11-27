@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
 import AchievementIconSrc from '@assets/star.svg';
+import { Typography } from '@mui/material';
 import { BadgeType } from '../types';
 import { StyledBadge, InfoWrapper } from './index.css';
 

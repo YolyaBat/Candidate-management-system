@@ -1,13 +1,15 @@
 import { Typography } from '@mui/material';
+import { CandidateSummaryData } from '@api/types';
+import { useCandidateInfo } from '@api/hooks';
+import AlertIconPath from '@assets/alert.svg';
+import Spinner from '@components/@shared/Spinner';
+
 import {
 	SummaryWrapper,
 	PageHeader,
 	PageTitle,
 	HintWrapper,
 } from './index.css';
-import { CandidateSummaryData } from '@api/types';
-import { useCandidateInfo } from '@api/hooks';
-import AlertIconPath from '@assets/alert.svg';
 import {
 	SkillsSection,
 	AchievementsSection,
@@ -20,7 +22,7 @@ const CandidateSummary = () => {
 	const { data, error } = useCandidateInfo();
 
 	if (!data && !error) {
-		return <div>Loading...</div>;
+		return <Spinner />;
 	}
 
 	if (error) {

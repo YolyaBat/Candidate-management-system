@@ -1,9 +1,7 @@
-import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { Box, colors } from '@mui/material';
-
-import { BadgeType } from '../types';
+import { Box, colors, Typography } from '@mui/material';
 import { theme } from '@components/layout/theme';
+import { BadgeType } from '../types';
 import Badge from './GenericBadge';
 
 const RELEVANT_SKILL_BACKGROUND = 'rgba(131 44 224 / 0.08)';
