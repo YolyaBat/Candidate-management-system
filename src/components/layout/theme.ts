@@ -4,16 +4,18 @@ import { grey } from '@mui/material/colors';
 export const theme = createTheme({
 	palette: {
 		primary: {
-			main: '#832CE014',
-			light: '#63a4ff',
-			dark: '#004ba0',
+			main: '#832CE0',
 		},
 		secondary: {
-			main: '#832CE0',
+			main: '#212121',
+			light: '#1D7FAC',
 		},
 		common: {
 			black: '#000',
 			white: '#fff',
+		},
+		info: {
+			main: 'rgb(0 0 0 / 0.38)',
 		},
 	},
 	typography: {
@@ -31,9 +33,13 @@ export const theme = createTheme({
 		},
 		body1: {
 			fontSize: '1rem',
+			fontWeight: 400,
+			color: grey[900],
 		},
 		body2: {
 			fontSize: '0.875rem',
+			fontWeight: 400,
+			color: grey[900],
 		},
 	},
 	spacing: 8,

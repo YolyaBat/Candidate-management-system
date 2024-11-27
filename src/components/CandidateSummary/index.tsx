@@ -1,69 +1,92 @@
 import { Typography } from '@mui/material';
-import { SummaryWrapper, SkillsWrapper } from './index.css';
+import {
+	PageHeader,
+	PageTitle,
+	HintWrapper,
+	SummaryWrapper,
+	SkillsWrapper,
+	HiringInfoWrapper,
+} from './index.css';
 import { CandidateSummaryData } from '@api/types';
-import SkillBadge from './SkillBadge';
-import { SkillBadgeType } from './types';
 import { useCandidateInfo } from '@api/hooks';
+import AlertIconSrc from '@assets/alert.svg';
+import HiringInfoBadge from './Badges/HiringInfoBadge';
+import { AchievementBadge, SkillBadge } from './Badges';
+
+const alertIcon = <img src={AlertIconSrc} alt="Alert Icon" />;
 
 const CandidateSummary = () => {
-	const { data, error } = useCandidateInfo();
+	const { data, isError, isLoading } = useCandidateInfo();
 
-	if (!data && !error) {
-		return <div>Loading...</div>;
+	if (isLoading && !isError) {
+		return <></>;
 	}
 
-	if (error) {
-		return <div>Error</div>;
-	}
-	const { summary, mainSkills, additionalSkills, achievements } =
-		data as CandidateSummaryData;
+	const {
+		summary,
+		mainSkills,
+		additionalSkills,
+		achievements,
+		availability,
+		involvement,
+		readyToStart,
+		directHirePossible,
+	} = data as CandidateSummaryData;
+
+	const hiringInfoData = [
+		{ title: 'Availability', value: `${availability}, ${involvement}` },
+		{ title: 'Ready to start', value: readyToStart },
+		{ title: 'Direct hire', value: directHirePossible },
+	];
 
 	return (
 		<SummaryWrapper>
-			<Typography variant="h1">Summary</Typography>
+			<PageHeader>
+				<PageTitle variant="h1">Summary</PageTitle>
+				<HintWrapper>
+					{alertIcon}
+					<Typography variant="body1">
+						Relevant skills are highlighted
+					</Typography>
+				</HintWrapper>
+			</PageHeader>
 			<Typography variant="body1">{summary}</Typography>
 			<Typography variant="h2">Main technologies</Typography>
 			<SkillsWrapper>
 				{mainSkills.map((mainSkill, index) => (
 					<SkillBadge
-						type={
-							mainSkill.relevant
-								? SkillBadgeType.RelevantSkill
-								: SkillBadgeType.ComplementarySkill
-						}
 						key={`${mainSkill.name}${index}`}
-					>
-						<Typography variant="body1">{mainSkill.name}</Typography>
-						<Typography variant="body1">{mainSkill.years}</Typography>
-					</SkillBadge>
+						name={mainSkill.name}
+						years={mainSkill.years}
+						isRelevant={mainSkill.relevant}
+					/>
 				))}
 			</SkillsWrapper>
 			<Typography variant="h2">Additional skills</Typography>
 			<SkillsWrapper>
 				{additionalSkills.map((skill, index) => (
 					<SkillBadge
-						type={
-							skill.relevant
-								? SkillBadgeType.RelevantSkill
-								: SkillBadgeType.ComplementarySkill
-						}
 						key={`${skill.name}${index}`}
-					>
-						<Typography variant="body1">{skill.name}</Typography>
-					</SkillBadge>
+						name={skill.name}
+						isRelevant={skill.relevant}
+					/>
 				))}
 			</SkillsWrapper>
 			<Typography variant="h2">Rewards and achievements</Typography>
 			<SkillsWrapper>
-				{achievements.map((achievement, index) => (
-					<SkillBadge
-						type={SkillBadgeType.Achievement}
-						key={`${achievement}${index}`}
-					>
-						<Typography variant="body1">{achievement}</Typography>
-					</SkillBadge>
+				{achievements.map((achievement) => (
+					<AchievementBadge key={achievement} value={achievement} />
 				))}
 			</SkillsWrapper>
+			<HiringInfoWrapper>
+				{hiringInfoData.map((info) => (
+					<HiringInfoBadge
+						key={info.title}
+						title={info.title}
+						value={info.value}
+					/>
+				))}
+			</HiringInfoWrapper>
 		</SummaryWrapper>
 	);
 };
