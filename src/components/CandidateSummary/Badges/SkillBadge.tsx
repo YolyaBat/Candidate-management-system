@@ -1,15 +1,14 @@
-import React from 'react';
 import { Typography } from '@mui/material';
 import { BadgeType } from '../types';
 import { StyledBadge, InfoWrapper } from './index.css';
 
-interface SkillBadgeProps {
+type SkillBadgeProps = {
 	name: string;
 	isRelevant: boolean;
 	years?: string;
-}
+};
 
-const SkillBadge: React.FC<SkillBadgeProps> = ({ name, years, isRelevant }) => {
+const SkillBadge = ({ name, years, isRelevant }: SkillBadgeProps) => {
 	const skillType = isRelevant
 		? BadgeType.RelevantSkill
 		: BadgeType.ComplementarySkill;

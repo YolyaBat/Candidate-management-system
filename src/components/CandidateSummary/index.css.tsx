@@ -6,7 +6,13 @@ const HIGHLIGHT_COLOR = '#DCFF02';
 
 export const PageHeader = styled(Box)`
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	gap: ${theme.spacing(1)};
+
+	${theme.breakpoints.up('sm')} {
+		flex-direction: row;
+		justify-content: space-between;
+	}
 `;
 
 export const PageTitle = styled(Typography)`
@@ -57,7 +63,11 @@ export const SkillsWrapper = styled(Box)`
 
 export const HiringInfoWrapper = styled(Box)`
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: 1fr;
 	gap: ${theme.spacing(2)};
 	width: 100%;
+
+	${theme.breakpoints.up('sm')} {
+		grid-template-columns: repeat(3, 1fr);
+	}
 `;
