@@ -1,18 +1,19 @@
-import React from 'react';
 import { Typography } from '@mui/material';
 import AchievementIconSrc from '@assets/star.svg';
 import { BadgeType } from '../types';
-import { StyledBadge } from './index.css';
+import { StyledBadge, InfoWrapper } from './index.css';
 
 const AchievementIcon = <img src={AchievementIconSrc} alt="Achievement Icon" />;
 
-interface AchievementBadgeProps {
+type AchievementBadgeProps = {
 	value: string;
-}
+};
 
-const AchievementBadge: React.FC<AchievementBadgeProps> = ({ value }) => (
+const AchievementBadge = ({ value }: AchievementBadgeProps) => (
 	<StyledBadge icon={AchievementIcon} type={BadgeType.Achievement}>
-		<Typography variant="body2">{value}</Typography>
+		<InfoWrapper type={BadgeType.Achievement}>
+			<Typography variant="body2">{value}</Typography>
+		</InfoWrapper>
 	</StyledBadge>
 );
 

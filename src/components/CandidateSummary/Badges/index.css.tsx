@@ -1,10 +1,13 @@
 import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { Box } from '@mui/material';
+import { Box, colors } from '@mui/material';
 
 import { BadgeType } from '../types';
 import { theme } from '@components/layout/theme';
 import Badge from './GenericBadge';
+
+const RELEVANT_SKILL_BACKGROUND = 'rgba(131 44 224 / 0.08)';
+const ACHIEVEMENT_BACKGROUND = 'rgba(41 182 246 / 0.08)';
 
 export const HiringContentWrapper = styled.div`
 	display: flex;
@@ -15,6 +18,7 @@ export const HiringContentWrapper = styled.div`
 
 export const HiringInfoValue = styled(Typography)`
 	text-transform: uppercase;
+	line-height: ${theme.spacing(2.75)};
 `;
 
 export const BadgeWrapper = styled(Box)`
@@ -24,30 +28,35 @@ export const BadgeWrapper = styled(Box)`
 `;
 
 const backgroundColors = {
-	[BadgeType.RelevantSkill]: 'rgba(131 44 224 / 0.08)',
+	[BadgeType.RelevantSkill]: RELEVANT_SKILL_BACKGROUND,
 	[BadgeType.ComplementarySkill]: theme.palette.common.white,
-	[BadgeType.Achievement]: 'rgba(41 182 246 / 0.08)',
+	[BadgeType.Achievement]: ACHIEVEMENT_BACKGROUND,
+};
+
+const borderColors = {
+	[BadgeType.RelevantSkill]: theme.palette.primary.main,
+	[BadgeType.ComplementarySkill]: colors.grey[600],
+	[BadgeType.Achievement]: theme.palette.secondary.light,
+};
+
+const textColors = {
+	...borderColors,
+	[BadgeType.ComplementarySkill]: theme.palette.secondary.main,
 };
 
 export const StyledBadge = styled(Badge)<{
 	type: BadgeType;
 }>`
 	background-color: ${({ type }) => backgroundColors[type]};
+	border: 1px dashed ${({ type }) => borderColors[type]};
+	padding: ${({ type }) =>
+		type !== BadgeType.Achievement &&
+		`${theme.spacing(1)} ${theme.spacing(1.5)}`};
 `;
-
-const textColors = {
-	[BadgeType.RelevantSkill]: theme.palette.primary.main,
-	[BadgeType.ComplementarySkill]: theme.palette.secondary.main,
-	[BadgeType.Achievement]: theme.palette.secondary.light,
-};
 
 export const InfoWrapper = styled(Box)<{
 	type: BadgeType;
 }>`
-	display: flex;
-	flex-direction: column;
-	gap: ${theme.spacing(1)};
-
 	p {
 		color: ${({ type }) => textColors[type]};
 	}
